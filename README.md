@@ -1,4 +1,7 @@
 # Anacreon MPV script
+### Note
+Check out a new modern way to mine from anime
+https://github.com/friedrich-de/mpv-subtitleminer
 
 Detailed usage guide here: <https://animecards.site/minefromanime/>. Additional instructions in the script itself.
 
