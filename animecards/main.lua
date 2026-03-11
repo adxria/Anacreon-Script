@@ -42,7 +42,11 @@ local has_input, input = pcall(require, 'mp.input')
 if unpack ~= nil then table.unpack = unpack end
 
 mp_options.read_options(opts, "animecards") -- loads user's animecards.conf
-mp.register_event("file-loaded", enc.verify_libmp3lame)
+if opts.AUDIO_FORMAT == "mp3" then
+  mp.register_event("file-loaded", enc.verify_libmp3lame)
+elseif opts.AUDIO_FORMAT == "aac" then
+  mp.register_event("file-loaded", enc.verify_aac)
+end
 clip.detect_platform()
 
 -- Core functions

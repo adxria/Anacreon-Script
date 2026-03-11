@@ -69,6 +69,18 @@ function encoder.verify_libmp3lame()
   end
 end
 
+function encoder.verify_aac()
+  local encoderlist = mp.get_property("encoder-list")
+  if not encoderlist or not string.find(encoderlist, "aac") then
+    mp.osd_message(
+      "Error: aac encoder not found. AAC audio export will not work.\nPlease use a build of mpv with aac support.",
+      10)
+    msg.error("Error: aac encoder not found. AAC audio export will not work.")
+  else
+    tools.dlog("aac encoder found.")
+  end
+end
+
 -- Generates a filename (without extension) for both audio and image.
 -- Removes non-word characters using gsub and appends timings.
 function encoder.gen_name(start_time, end_time)
@@ -90,7 +102,7 @@ function encoder.create_audio(name, start_time, end_time)
 
   local volume = opts.USE_MPV_VOLUME and mp.get_property('volume') or '100'
   local channels = opts.AUDIO_MONO and '1' or 'auto'
-  local output = utils.join_path(anki.get_media_dir(), name .. '.mp3')
+  local output = utils.join_path(anki.get_media_dir(), name .. '.' .. opts.AUDIO_FORMAT)
 
   local cmd = {
     'run', 'mpv', source, '--loop-file=no',
@@ -156,7 +168,7 @@ end
 
 function encoder.autoplay(name)
   if opts.AUTOPLAY_AUDIO == true then
-    local audio = utils.join_path(anki.get_media_dir(), name .. '.mp3')
+    local audio = utils.join_path(anki.get_media_dir(), name .. '.' .. opts.AUDIO_FORMAT)
     local cmd = { 'run', 'mpv', audio, '--loop-file=no', '--load-scripts=no' }
     mp.commandv(table.unpack(cmd))
   end
