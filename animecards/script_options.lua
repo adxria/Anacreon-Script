@@ -17,6 +17,7 @@ opts.HIGHLIGHT_WORD = false
 opts.USE_MPV_CLIPBOARD_API = false
 
 -- Audio settings
+opts.AUDIO_FORMAT = "mp3"      -- mp3 | aac
 opts.AUDIO_CLIP_FADE = 0.2     -- seconds
 opts.AUDIO_CLIP_PADDING = 0.75 -- seconds
 opts.AUDIO_MONO = true
